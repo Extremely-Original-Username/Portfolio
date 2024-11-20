@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import './App.css';
+import './styling/App.css';
+import DynamicBackground from './Components/DynamicBackground';
 
 function App() {
     const [helloWorldText, setHelloWorldText] = useState(''); // State to store the fetched data
@@ -25,6 +26,7 @@ function App() {
             <h1 id="tabelLabel">Sample page</h1>
             <p>This component demonstrates fetching data from the server.</p>
             <div>{helloWorldText || 'Loading...'}</div> {/* Display fetched text or a loading message */}
+            <DynamicBackground />
         </div>
     );
 }

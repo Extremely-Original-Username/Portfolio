@@ -54,5 +54,5 @@ export default defineConfig({
             cert: fs.readFileSync(certFilePath),
         }
     },
-    envDir: "./src/"
+    envDir: "./src/environment/"
 })
