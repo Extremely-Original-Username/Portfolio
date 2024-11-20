@@ -2,7 +2,30 @@ import { useEffect, useState } from 'react';
 import '../styling/DynamicBackground.css';
 
 const DynamicBackground = () => {
-    const [circles, setCircles] = useState([]);
+
+    class circle {
+        id: string = "";       // Unique identifier for the circle
+        size: number = 0;     // Diameter of the circle in pixels
+        x: number = 0;        // Horizontal position as a percentage
+        y: number = 0;        // Vertical position as a percentage
+        duration: number = 0; // Animation duration in seconds
+    }
+
+    const [circles, setCircles] = useState<circle[]>([]);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCircles((prevCircles) =>
+                prevCircles.map((circle) => ({
+                    ...circle, // Create a new object to avoid mutation
+                    size: circle.size + 1, // Update size immutably
+                }))
+            );
+        }, 1); // Interval
+
+        // Cleanup function to clear the interval when the component unmounts
+        return () => clearInterval(intervalId);
+    }, []);
 
     useEffect(() => {
         // Create an array of circles with random positions and sizes
