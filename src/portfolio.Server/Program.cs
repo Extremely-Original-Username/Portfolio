@@ -14,6 +14,19 @@ namespace portfolio.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            var OriginsAllowedPolicyName = "corsPolicy";
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: OriginsAllowedPolicyName,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("https://localhost:7224/",
+                                                          "https://localhost:5173/",
+                                                          "https://localhost:5173");
+                                  });
+            });
+
             var app = builder.Build();
 
             app.UseDefaultFiles();
@@ -24,6 +37,7 @@ namespace portfolio.Server
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseCors(OriginsAllowedPolicyName);
             }
 
             app.UseHttpsRedirection();
