@@ -1,24 +1,61 @@
 import { useEffect, useState } from 'react';
 import '../styling/DynamicBackground.css';
+import vector2 from './../model/vector2';
 
 const DynamicBackground = () => {
-
     class circle {
         id: string = "";       // Unique identifier for the circle
         size: number = 0;     // Diameter of the circle in pixels
-        x: number = 0;        // Horizontal position as a percentage
-        y: number = 0;        // Vertical position as a percentage
-        duration: number = 0; // Animation duration in seconds
+        position: vector2 = new vector2(0, 0);
+        delta: vector2 = new vector2(0, 0);
+
+        constructor(id: string, size: number, positon: vector2, delta: vector2) {
+            this.id = id;
+            this.size = size;
+            this.position = positon;
+            this.delta = delta;
+        }
+
+        static getNextFrameCircle(item: circle): circle {
+            const newCircle = new circle(item.id, item.size, item.position, item.delta);
+
+            newCircle.position.x += newCircle.delta.x;
+            newCircle.position.y += newCircle.delta.y;
+
+            if (newCircle.position.x >= 99 || newCircle.position.x < 0) {
+                newCircle.delta.x *= -1;
+            }
+            if (newCircle.position.y >= 99 || newCircle.position.y < 0) {
+                newCircle.delta.y *= -1;
+            }
+
+            return newCircle;
+        }
     }
 
     const [circles, setCircles] = useState<circle[]>([]);
 
+    //Generate objects in background
+    useEffect(() => {
+        const generateCircles = () => {
+            const newCircles = Array.from({ length: 20 }).map(() => ({
+                id: Math.random().toString(36).substr(2, 9),
+                size: Math.random() * 10 + 10, // Random size between 10px and 60px
+                position: new vector2(Math.random() * 100, Math.random() * 100),
+                delta: new vector2((Math.random() - 0.5) / 50, (Math.random() - 0.5) / 50)
+            }));
+            setCircles(newCircles);
+        };
+
+        generateCircles();
+    }, []);
+
+    //Update loop for curcles
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCircles((prevCircles) =>
-                prevCircles.map((circle) => ({
-                    ...circle, // Create a new object to avoid mutation
-                    size: circle.size + 1, // Update size immutably
+                prevCircles.map((oldCircle) => ({
+                    ...circle.getNextFrameCircle(oldCircle)
                 }))
             );
         }, 1); // Interval
@@ -27,24 +64,8 @@ const DynamicBackground = () => {
         return () => clearInterval(intervalId);
     }, []);
 
-    useEffect(() => {
-        // Create an array of circles with random positions and sizes
-        const generateCircles = () => {
-            const newCircles = Array.from({ length: 20 }).map(() => ({
-                id: Math.random().toString(36).substr(2, 9),
-                size: Math.random() * 50 + 10, // Random size between 10px and 60px
-                x: Math.random() * 100, // Random position on x-axis (0 to 100%)
-                y: Math.random() * 100, // Random position on y-axis (0 to 100%)
-                duration: Math.random() * 5 + 3, // Random animation duration (3 to 8 seconds)
-            }));
-            setCircles(newCircles);
-        };
-
-        generateCircles();
-    }, []);
-
     return (
-        <div className="floating-circles">
+        <div className="dynamic-background">
             {circles.map((circle) => (
                 <div
                     key={circle.id}
@@ -52,9 +73,8 @@ const DynamicBackground = () => {
                     style={{
                         width: circle.size,
                         height: circle.size,
-                        left: `${circle.x}%`,
-                        top: `${circle.y}%`,
-                        animationDuration: `${circle.duration}s`,
+                        left: `${circle.position.x}%`,
+                        top: `${circle.position.y}%`
                     }}
                 ></div>
             ))}

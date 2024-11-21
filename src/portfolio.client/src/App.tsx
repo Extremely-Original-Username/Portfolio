@@ -23,10 +23,15 @@ function App() {
 
     return (
         <div>
-            <h1 id="tabelLabel">Sample page</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            <div>{helloWorldText || 'Loading...'}</div> {/* Display fetched text or a loading message */}
-            <DynamicBackground />
+            <div className="background">
+                <DynamicBackground />
+            </div>
+
+            <div className="foreground">
+                <h1 id="tabelLabel">Sample page</h1>
+                <p>This component demonstrates fetching data from the server.</p>
+                <div>{helloWorldText || 'Loading...'}</div> {/* Display fetched text or a loading message */}
+            </div>
         </div>
     );
 }
