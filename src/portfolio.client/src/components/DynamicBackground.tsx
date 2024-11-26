@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import '../styling/DynamicBackground.css';
+import '../styling/dynamicBackground.css';
 import vector2 from './../model/vector2';
 
 const DynamicBackground = () => {
