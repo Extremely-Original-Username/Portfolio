@@ -5,7 +5,7 @@
       "type": "npm",
       "script": "start",
       "group": {
-        "kind": "test",
+        "kind": "build",
         "isDefault": true
       },
       "isBackground": true,
