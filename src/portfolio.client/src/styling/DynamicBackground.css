@@ -3,12 +3,12 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-color: var(--BackgroundBack); /* Change to your preferred background color */
+    background-color: var(--BackgroundBack);
 }
 
 .circle {
     position: absolute;
     border-radius: 50%;
-    background-color: var(--Accent); /* Semi-transparent white */
+    background-color: var(--Accent);
     opacity: 0.5;
 }
