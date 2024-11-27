@@ -8,10 +8,10 @@ function App() {
     useEffect(() => {
         async function fetchHelloWorld() {
             try {
-                //const endpoint = import.meta.env.VITE_BACKEND_API_URL + "HelloWorld";
-                //const response = await fetch(endpoint); // Fetch data from the endpoint
-                //const data = await response.text(); // Get the text response
-                setHelloWorldText("Placeholder for APU call"); // Update the state with the fetched text
+                const endpoint = process.env.REACT_APP_API_URL + "HelloWorld";
+                const response = await fetch(endpoint); // Fetch data from the endpoint
+                const data = await response.text(); // Get the text response
+                setHelloWorldText(data); // Update the state with the fetched text
             } catch (error) {
                 console.error('Error fetching HelloWorld:', error); // Handle errors
                 setHelloWorldText('Error fetching data.');

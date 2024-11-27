@@ -22,8 +22,8 @@ namespace portfolio.Server
                                   policy =>
                                   {
                                       policy.WithOrigins("https://localhost:7224/",
-                                                          "https://localhost:5173/",
-                                                          "https://localhost:5173");
+                                                          "https://localhost:3000/",
+                                                          "https://localhost:3000");
                                   });
             });
 

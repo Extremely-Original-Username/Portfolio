@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "portfolio.server", "portfolio.Server\portfolio.server.csproj", "{79841AAD-09BC-4229-9A5A-E0173BDCC770}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "portfolio.client", "portfolio.client\portfolio.client.esproj", "{BA956FED-A752-4527-B3A9-57524308B70E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{79841AAD-09BC-4229-9A5A-E0173BDCC770} = {79841AAD-09BC-4229-9A5A-E0173BDCC770}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,7 +22,6 @@ Global
 		{79841AAD-09BC-4229-9A5A-E0173BDCC770}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA956FED-A752-4527-B3A9-57524308B70E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA956FED-A752-4527-B3A9-57524308B70E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA956FED-A752-4527-B3A9-57524308B70E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{BA956FED-A752-4527-B3A9-57524308B70E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA956FED-A752-4527-B3A9-57524308B70E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA956FED-A752-4527-B3A9-57524308B70E}.Release|Any CPU.Deploy.0 = Release|Any CPU
