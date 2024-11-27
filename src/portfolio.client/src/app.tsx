@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './styling/app.css';
-import DynamicBackground from './components/DynamicBackground';
+import DynamicBackground from './components/dynamicBackground';
 
 function App() {
     const [helloWorldText, setHelloWorldText] = useState(''); // State to store the fetched data
