@@ -4,40 +4,20 @@
     font-weight: 400;
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    --ForegroundBack: #594761;
-    --BackgroundBack: #322030;
-    --Accent: #7EE6B6;
-    --SecondaryDark: #697871;
-    --AltAccent: #FFA473;
-    --AltSoft: #FFEACC;
-
-    --primary-100: #4CAF50;
-    --primary-200: #2a9235;
-    --primary-300: #005100;
-    --accent-100: #FF5722;
-    --accent-200: #fff3b0;
-    --text-100: #FFFFFF;
-    --text-200: #e0e0e0;
-    --bg-100: #1A1A1A;
-    --bg-200: #292929;
-    --bg-300: #404040;
-
-    --primary-100:#4CAF50;
-    --primary-200:#2a9235;
-    --primary-300:#005100;
-    --accent-100:#FF5722;
-    --accent-200:#fff3b0;
-    --text-100:#FFFFFF;
-    --text-200:#e0e0e0;
-    --bg-100:#1A1A1A;
-    --bg-200:#292929;
-    --bg-300:#404040;
-      
+    --Light: #F4F5F5;
+    --Accent: #AA829A;
+    --AltAccent: #B29286;
+    --Dark: #424250;
+    --AltDark: #84777A;
+    --Primary: #aa809a;
+    --Infro: #424250;
+    --Success: #68a166;
+    --Warning: #e6912e;
+    --Danget: #f44336;
 }
 
 a {

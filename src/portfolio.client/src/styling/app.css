@@ -30,6 +30,6 @@ th, td {
 
 .foreground {
     width: 800px;
-    background-color: var(--ForegroundBack);
+    background-color: var(--AltDark);
     position: relative;
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import './styling/App.css';
-import DynamicBackground from './Components/DynamicBackground';
+import './styling/app.css';
+import DynamicBackground from './components/dynamicBackground';
 
 function App() {
     const [helloWorldText, setHelloWorldText] = useState(''); // State to store the fetched data
@@ -8,7 +8,7 @@ function App() {
     useEffect(() => {
         async function fetchHelloWorld() {
             try {
-                const endpoint = import.meta.env.VITE_BACKEND_API_URL + "HelloWorld";
+                const endpoint = process.env.REACT_APP_API_URL + "HelloWorld";
                 const response = await fetch(endpoint); // Fetch data from the endpoint
                 const data = await response.text(); // Get the text response
                 setHelloWorldText(data); // Update the state with the fetched text

@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "portfolio.client\\portfolio.client.esproj",
+        "Action": "Start",
+        "DebugTarget": "localhost (Chrome)"
+      },
+      {
+        "Path": "portfolio.api\\portfolio.api.csproj",
+        "Action": "Start",
+        "DebugTarget": "portfolio.api"
+      }
+    ]
+  }
+]
