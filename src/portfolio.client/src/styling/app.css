@@ -28,8 +28,9 @@ th, td {
     z-index: -10;
 }
 
-.foreground {
+.standardPanel {
     width: 800px;
     background-color: var(--AltDark);
+    color: var(--Light);
     position: relative;
 }
