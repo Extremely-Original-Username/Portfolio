@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "portfolio.api": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7035",
+      "launchBrowser": false
+    }
+  }
+}
