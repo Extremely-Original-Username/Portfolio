@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import circle from '../model/circle';
+import lineData from '../model/lineData';
 import '../styling/dynamicBackground.css';
 import vector2 from './../model/vector2';
 
 const DynamicBackground = () => {
     const [circles, setCircles] = useState<circle[]>([]);
+    const [lines, setLines] = useState<lineData[]>([])
     const requestRef = useRef<number | null>(null);
 
     //Generate objects in background
@@ -19,7 +21,10 @@ const DynamicBackground = () => {
             setCircles(newCircles);
         };
 
+        const generateLines = () => { setLines([new lineData(new vector2(100, 100), new vector2(110, 110), "#333", 2)]) };
+
         generateCircles();
+        generateLines();
     }, []);
 
     // Animation loop
@@ -53,6 +58,16 @@ const DynamicBackground = () => {
                         top: `${circle.position.y}%`
                     }}
                 ></div>
+            ))}
+
+            {lines.map((line) => (
+                <svg width="100%" height="100%">
+                    <line
+                        x1={line.start.x} y1={line.start.y}
+                        x2={line.end.x} y2={line.end.y}
+                        stroke={line.color}
+                        strokeWidth={line.strokeWidth} />
+                </svg>
             ))}
         </div>
     );
