@@ -1,3 +1,5 @@
+import vector2 from "./vector2";
+
 class circle {
     id: string = "";       // Unique identifier for the circle
     size: number = 0;     // Diameter of the circle in pixels
@@ -17,12 +19,10 @@ class circle {
         newCircle.position.x += newCircle.delta.x;
         newCircle.position.y += newCircle.delta.y;
 
-        if (newCircle.position.x >= 99 || newCircle.position.x < 0) {
-            newCircle.position.x = 98;
+        if (newCircle.position.x > 99 || newCircle.position.x < 0) {
             newCircle.delta.x *= -1;
         }
-        if (newCircle.position.y >= 99 || newCircle.position.y < 0) {
-            newCircle.position.y = 98;
+        if (newCircle.position.y > 99 || newCircle.position.y < 0) {
             newCircle.delta.y *= -1;
         }
 
