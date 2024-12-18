@@ -9,6 +9,35 @@ const DynamicBackground = () => {
     const [lines, setLines] = useState<lineData[]>([])
     const requestRef = useRef<number | null>(null);
 
+    const sizeRef = useRef<HTMLDivElement | null>(null);
+    const [size, setSize] = useState(new vector2 (0, 0));
+
+    useEffect(() => {
+        const updateSize = () => {
+            if (sizeRef.current) {
+                setSize(new vector2(sizeRef.current.offsetWidth, sizeRef.current.offsetHeight));
+            }
+        };
+        updateSize();
+
+        // Observe size changes using ResizeObserver
+        const resizeObserver = new ResizeObserver(() => {
+            updateSize();
+        });
+        if (sizeRef.current) {
+            resizeObserver.observe(sizeRef.current);
+        }
+
+        // Cleanup
+        return () => {
+            resizeObserver.disconnect();
+        };
+    }, []);
+
+    useEffect(() => {
+        console.log("Size updated:", size.x, size.y);
+    }, [size]);
+
     //Generate objects in background
     useEffect(() => {
         const generateCircles = () => {
@@ -46,7 +75,7 @@ const DynamicBackground = () => {
     }, []);
 
     return (
-        <div className="dynamic-background">
+        <div className="dynamic-background" ref={sizeRef}>
             {circles.map((circle) => (
                 <div
                     key={circle.id}
