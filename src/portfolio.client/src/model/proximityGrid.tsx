@@ -50,16 +50,26 @@ class proximityGrid {
     }
 
     getCirclesWithinGridNeighborhood(position: vector2): circle[] {
-        this.validatePositionIsOnGrid(position);
-
         let result: circle[] = [];
-        for (var x = (position.x / this.scale) - 1; x < (position.x / this.scale) + 1; x++) {
-            for (var y = (position.y / this.scale) - 1; y < (position.y / this.scale) + 1; y++) {
-                let currentIndex: string = vector2ToGridIndex(position, this.scale);
+        const gridX = Math.floor(position.x / this.scale);
+        const gridY = Math.floor(position.y / this.scale);
 
-                let circlesAtIndex = this.map.get(currentIndex)
-                if (circlesAtIndex !== undefined && (position.x !== x && position.y !== y)) {
-                    result.push(...circlesAtIndex);
+        // Check all adjacent grid cells including the current one
+        for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+                const neighborX = gridX + dx;
+                const neighborY = gridY + dy;
+
+                // Only process valid grid indices
+                if (
+                    neighborX >= 0 && neighborX < this.width &&
+                    neighborY >= 0 && neighborY < this.height
+                ) {
+                    const key = vector2ToGridIndex(new vector2(neighborX * this.scale, neighborY * this.scale), this.scale);
+                    const circlesAtIndex = this.map.get(key);
+                    if (circlesAtIndex) {
+                        result.push(...circlesAtIndex);
+                    }
                 }
             }
         }

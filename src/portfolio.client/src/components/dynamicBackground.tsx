@@ -8,7 +8,8 @@ import vector2 from './../model/vector2';
 const DynamicBackground = () => {
     const [circles, setCircles] = useState<circle[]>([]);
     const [lines, setLines] = useState<lineData[]>([])
-    const requestRef = useRef<number | null>(null);
+    const circleAnimationRef = useRef<number | null>(null);
+    const lineAnimationRef = useRef<number | null>(null);
 
     const sizeRef = useRef<HTMLDivElement | null>(null);
     const [size, setSize] = useState(new vector2(0, 0));
@@ -44,7 +45,7 @@ const DynamicBackground = () => {
     //Generate circles in background
     useEffect(() => {
         const generateCircles = () => {
-            const newCircles = Array.from({ length: 20 }).map(() => ({
+            const newCircles = Array.from({ length: 5 }).map(() => ({
                 id: Math.random().toString(36).substr(2, 9),
                 size: Math.random() * 10 + 10,                                              // Random size between 10px and 60px
                 position: new vector2(Math.random() * 100, Math.random() * 100),            // Random position between 0% and 100%
@@ -64,35 +65,53 @@ const DynamicBackground = () => {
     //Animation loop
     useEffect(() => {
         const animateCircles = () => {
-            setCircles((prevCircles) =>
-                prevCircles.map((oldCircle) => ({
-                    ...circle.getNextFrameCircle(oldCircle, proxGrid.current)
-                }))
-            )
+            setCircles((prevCircles) => {
+                const updatedCircles = prevCircles.map((currentCircle) => {
+                    const nextCircle = circle.getNextFrameCircle(currentCircle);
 
-            requestRef.current = requestAnimationFrame(animateCircles);
+                    // Update proximity grid with new positions
+                    proxGrid.current.removeCircleFromGrid(currentCircle, currentCircle.position);
+                    proxGrid.current.addCircleToGrid(nextCircle);
+
+                    return nextCircle;
+                });
+
+                return updatedCircles;
+            });
+
+            circleAnimationRef.current = requestAnimationFrame(animateCircles);
         };
 
-        const generateLines = () => {
+        circleAnimationRef.current = requestAnimationFrame(animateCircles);
+        return () => {
+            if (circleAnimationRef.current) cancelAnimationFrame(circleAnimationRef.current);
+        };
+    }, [proxGrid, circles]);
+
+    useEffect(() => {
+        const animateLines = () => {
             var lines: lineData[] = [];
             circles.forEach(circle => {
                 proxGrid.current.getCirclesWithinGridNeighborhood(circle.position).forEach(neighbor => {
-                    let newLine = new lineData(
-                        new vector2(circle.position.x * size.x / 100, circle.position.y * size.y / 100),
-                        new vector2(neighbor.position.x * size.x / 100, neighbor.position.y * size.y / 100),
-                        "#FFFFFF", 2);
-                    lines.push(newLine);
+                    if (circle.id !== neighbor.id) {
+                        let newLine = new lineData(
+                            new vector2(circle.position.x * size.x / 100, circle.position.y * size.y / 100),
+                            new vector2(neighbor.position.x * size.x / 100, neighbor.position.y * size.y / 100),
+                            "#FFFFFF", 2);
+                        lines.push(newLine);
+                    }
                 });
             });
             setLines(lines);
-        };
-        generateLines();
 
-        requestRef.current = requestAnimationFrame(animateCircles);
+            lineAnimationRef.current = requestAnimationFrame(animateLines);
+        }
+
+        lineAnimationRef.current = requestAnimationFrame(animateLines);
         return () => {
-            if (requestRef.current) cancelAnimationFrame(requestRef.current);
+            if (lineAnimationRef.current) cancelAnimationFrame(lineAnimationRef.current);
         };
-    }, [proxGrid, circles]);
+    }, [circles, size.x, size.y, proxGrid]);
 
     return (
         <div className="dynamic-background" ref={sizeRef}>
@@ -110,7 +129,7 @@ const DynamicBackground = () => {
             ))}
 
             {lines.map((line) => (
-                <svg width="100%" height="100%">
+                <svg className="line">
                     <line
                         x1={line.start.x} y1={line.start.y}
                         x2={line.end.x} y2={line.end.y}

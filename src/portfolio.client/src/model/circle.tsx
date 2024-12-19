@@ -14,10 +14,8 @@ class circle {
         this.delta = delta;
     }
 
-    static getNextFrameCircle(item: circle, proxGrid: proximityGrid): circle {
+    static getNextFrameCircle(item: circle): circle {
         const newCircle = new circle(item.id, item.size, item.position, item.delta);
-
-        proxGrid.removeCircleFromGrid(item, item.position);
 
         newCircle.position.x += newCircle.delta.x;
         newCircle.position.y += newCircle.delta.y;
@@ -30,8 +28,6 @@ class circle {
             newCircle.position.y = Math.max(Math.min(newCircle.position.y, 99), 0)
             newCircle.delta.y *= -1;
         }
-
-        proxGrid.addCircleToGrid(newCircle);
         return newCircle;
     }
 }

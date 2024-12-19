@@ -12,3 +12,8 @@
     background-color: var(--Accent);
     opacity: 0.5;
 }
+
+.line {
+    position: absolute;
+    opacity: 0.5;
+}
