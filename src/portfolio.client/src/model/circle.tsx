@@ -23,9 +23,11 @@ class circle {
         newCircle.position.y += newCircle.delta.y;
 
         if (newCircle.position.x > 99 || newCircle.position.x < 0) {
+            newCircle.position.x = Math.max(Math.min(newCircle.position.x, 99), 0)
             newCircle.delta.x *= -1;
         }
         if (newCircle.position.y > 99 || newCircle.position.y < 0) {
+            newCircle.position.y = Math.max(Math.min(newCircle.position.y, 99), 0)
             newCircle.delta.y *= -1;
         }
 

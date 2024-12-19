@@ -13,7 +13,7 @@ const DynamicBackground = () => {
     const sizeRef = useRef<HTMLDivElement | null>(null);
     const [size, setSize] = useState(new vector2(0, 0));
 
-    const proxGrid = new proximityGrid(10, 10);
+    const proxGrid = useRef(new proximityGrid(10, 10, 10));
 
     useEffect(() => {
         const updateSize = () => {
@@ -41,7 +41,7 @@ const DynamicBackground = () => {
         console.log("Size updated:", size.x, size.y);
     }, [size]);
 
-    //Generate objects in background
+    //Generate circles in background
     useEffect(() => {
         const generateCircles = () => {
             const newCircles = Array.from({ length: 20 }).map(() => ({
@@ -54,33 +54,45 @@ const DynamicBackground = () => {
 
             for (var i = 0; i < newCircles.length; i++) {
                 let current = newCircles[i];
-                proxGrid.addCircleToGrid(current);
+                proxGrid.current.addCircleToGrid(current);
             } 
         };
 
-        const generateLines = () => { setLines([new lineData(new vector2(100, 100), new vector2(110, 110), "#333", 2)]) };
-
         generateCircles();
-        generateLines();
     }, []);
 
-    // Animation loop
-    const animateCircles = () => {
-        setCircles((prevCircles) =>
-            prevCircles.map((oldCircle) => ({
-                ...circle.getNextFrameCircle(oldCircle, proxGrid)
-            }))
-        )
-
-        requestRef.current = requestAnimationFrame(animateCircles);
-    };
-
+    //Animation loop
     useEffect(() => {
+        const animateCircles = () => {
+            setCircles((prevCircles) =>
+                prevCircles.map((oldCircle) => ({
+                    ...circle.getNextFrameCircle(oldCircle, proxGrid.current)
+                }))
+            )
+
+            requestRef.current = requestAnimationFrame(animateCircles);
+        };
+
+        const generateLines = () => {
+            var lines: lineData[] = [];
+            circles.forEach(circle => {
+                proxGrid.current.getCirclesWithinGridNeighborhood(circle.position).forEach(neighbor => {
+                    let newLine = new lineData(
+                        new vector2(circle.position.x * size.x / 100, circle.position.y * size.y / 100),
+                        new vector2(neighbor.position.x * size.x / 100, neighbor.position.y * size.y / 100),
+                        "#FFFFFF", 2);
+                    lines.push(newLine);
+                });
+            });
+            setLines(lines);
+        };
+        generateLines();
+
         requestRef.current = requestAnimationFrame(animateCircles);
         return () => {
             if (requestRef.current) cancelAnimationFrame(requestRef.current);
         };
-    }, []);
+    }, [proxGrid, circles]);
 
     return (
         <div className="dynamic-background" ref={sizeRef}>
