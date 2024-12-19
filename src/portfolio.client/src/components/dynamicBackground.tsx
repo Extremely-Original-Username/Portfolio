@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import circle from '../model/circle';
 import lineData from '../model/lineData';
+import proximityGrid from '../model/proximityGrid';
 import '../styling/dynamicBackground.css';
 import vector2 from './../model/vector2';
 
@@ -10,7 +11,9 @@ const DynamicBackground = () => {
     const requestRef = useRef<number | null>(null);
 
     const sizeRef = useRef<HTMLDivElement | null>(null);
-    const [size, setSize] = useState(new vector2 (0, 0));
+    const [size, setSize] = useState(new vector2(0, 0));
+
+    const proxGrid = new proximityGrid(10, 10);
 
     useEffect(() => {
         const updateSize = () => {
@@ -43,11 +46,16 @@ const DynamicBackground = () => {
         const generateCircles = () => {
             const newCircles = Array.from({ length: 20 }).map(() => ({
                 id: Math.random().toString(36).substr(2, 9),
-                size: Math.random() * 10 + 10, // Random size between 10px and 60px
-                position: new vector2(Math.random() * 100, Math.random() * 100),
+                size: Math.random() * 10 + 10,                                              // Random size between 10px and 60px
+                position: new vector2(Math.random() * 100, Math.random() * 100),            // Random position between 0% and 100%
                 delta: new vector2((Math.random() - 0.5) / 10, (Math.random() - 0.5) / 10)
             }));
             setCircles(newCircles);
+
+            for (var i = 0; i < newCircles.length; i++) {
+                let current = newCircles[i];
+                proxGrid.addCircleToGrid(current);
+            } 
         };
 
         const generateLines = () => { setLines([new lineData(new vector2(100, 100), new vector2(110, 110), "#333", 2)]) };
@@ -60,7 +68,7 @@ const DynamicBackground = () => {
     const animateCircles = () => {
         setCircles((prevCircles) =>
             prevCircles.map((oldCircle) => ({
-                ...circle.getNextFrameCircle(oldCircle)
+                ...circle.getNextFrameCircle(oldCircle, proxGrid)
             }))
         )
 

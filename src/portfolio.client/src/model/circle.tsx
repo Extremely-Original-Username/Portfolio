@@ -1,3 +1,4 @@
+import proximityGrid from "./proximityGrid";
 import vector2 from "./vector2";
 
 class circle {
@@ -13,8 +14,10 @@ class circle {
         this.delta = delta;
     }
 
-    static getNextFrameCircle(item: circle): circle {
+    static getNextFrameCircle(item: circle, proxGrid: proximityGrid): circle {
         const newCircle = new circle(item.id, item.size, item.position, item.delta);
+
+        proxGrid.removeCircleFromGrid(item, item.position);
 
         newCircle.position.x += newCircle.delta.x;
         newCircle.position.y += newCircle.delta.y;
@@ -26,6 +29,7 @@ class circle {
             newCircle.delta.y *= -1;
         }
 
+        proxGrid.addCircleToGrid(newCircle);
         return newCircle;
     }
 }
