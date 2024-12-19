@@ -65,12 +65,12 @@ const DynamicBackground = () => {
     //Animation loop
     useEffect(() => {
         const animateCircles = () => {
+            proxGrid.current = new proximityGrid(10, 10, 10);
             setCircles((prevCircles) => {
                 const updatedCircles = prevCircles.map((currentCircle) => {
                     const nextCircle = circle.getNextFrameCircle(currentCircle);
 
                     // Update proximity grid with new positions
-                    proxGrid.current.removeCircleFromGrid(currentCircle, currentCircle.position);
                     proxGrid.current.addCircleToGrid(nextCircle);
 
                     return nextCircle;
@@ -112,7 +112,7 @@ const DynamicBackground = () => {
         return () => {
             if (lineAnimationRef.current) cancelAnimationFrame(lineAnimationRef.current);
         };
-    }, [circles, size.x, size.y, proxGrid]);
+    }, [size.x, size.y, proxGrid]); //DO NOT ADD CIRCLES TO THIS DEPENDENCT
 
     return (
         <div className="dynamic-background" ref={sizeRef}>
