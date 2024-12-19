@@ -45,7 +45,7 @@ const DynamicBackground = () => {
     //Generate circles in background
     useEffect(() => {
         const generateCircles = () => {
-            const newCircles = Array.from({ length: 5 }).map(() => ({
+            const newCircles = Array.from({ length: 20 }).map(() => ({
                 id: Math.random().toString(36).substr(2, 9),
                 size: Math.random() * 10 + 10,                                              // Random size between 10px and 60px
                 position: new vector2(Math.random() * 100, Math.random() * 100),            // Random position between 0% and 100%
@@ -95,10 +95,11 @@ const DynamicBackground = () => {
                 proxGrid.current.getCirclesWithinGridNeighborhood(circle.position).forEach(neighbor => {
                     if (circle.id !== neighbor.id) {
                         let newLine = new lineData(
-                            new vector2(circle.position.x * size.x / 100, circle.position.y * size.y / 100),
-                            new vector2(neighbor.position.x * size.x / 100, neighbor.position.y * size.y / 100),
+                            new vector2((circle.position.x / 100 * size.x) + circle.size / 2, (circle.position.y / 100 * size.y) + circle.size / 2),
+                            new vector2((neighbor.position.x / 100 * size.x) + circle.size / 2, (neighbor.position.y / 100 * size.y) + circle.size / 2),
                             "#FFFFFF", 2);
                         lines.push(newLine);
+                        console.log("Creating new line with start x pos: " + newLine.start.x.toString())
                     }
                 });
             });
@@ -131,6 +132,7 @@ const DynamicBackground = () => {
             {lines.map((line) => (
                 <svg className="line">
                     <line
+                        className="line"
                         x1={line.start.x} y1={line.start.y}
                         x2={line.end.x} y2={line.end.y}
                         stroke={line.color}
