@@ -38,10 +38,6 @@ const DynamicBackground = () => {
         };
     }, []);
 
-    useEffect(() => {
-        console.log("Size updated:", size.x, size.y);
-    }, [size]);
-
     //Generate circles in background
     useEffect(() => {
         const generateCircles = () => {
@@ -103,7 +99,6 @@ const DynamicBackground = () => {
                             new vector2((neighbor.position.x / 100 * size.x) + neighbor.size / 2, (neighbor.position.y / 100 * size.y) + neighbor.size / 2),
                             "#FFFFFF", 1);
                         lines.push(newLine);
-                        console.log("Creating new line with start x pos: " + newLine.start.x.toString())
                     }
                 });
             });
