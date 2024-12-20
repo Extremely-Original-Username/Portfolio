@@ -12,9 +12,27 @@ const DynamicBackground = () => {
     const lineAnimationRef = useRef<number | null>(null);
 
     const sizeRef = useRef<HTMLDivElement | null>(null);
-    const [size, setSize] = useState(new vector2(0, 0));
+    const [size, setSize] = useState(new vector2(1, 1));
+
+    const mousePosition = useRef(new vector2(0, 0));
 
     const proxGrid = useRef(new proximityGrid(10, 10, 10));
+
+    useEffect(() => {
+        const mouseHandlerEvent = (event: MouseEvent) => {
+            mousePosition.current.x = event.clientX / size.x * 100;
+            mousePosition.current.y = event.clientY / size.y * 100;
+
+            //Disable event for some time
+            window.removeEventListener("mousemove", mouseHandlerEvent);
+            setTimeout(() => window.addEventListener("mousemove", mouseHandlerEvent), 1000)
+        }
+        window.addEventListener("mousemove", mouseHandlerEvent);
+
+        return () => {
+            window.removeEventListener("mousemove", mouseHandlerEvent);
+        }
+    }, [size]);
 
     useEffect(() => {
         const updateSize = () => {
