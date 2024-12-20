@@ -93,11 +93,15 @@ const DynamicBackground = () => {
             var lines: lineData[] = [];
             circles.forEach(circle => {
                 proxGrid.current.getCirclesWithinGridNeighborhood(circle.position).forEach(neighbor => {
-                    if (circle.id !== neighbor.id) {
+                    if (
+                        circle.id !== neighbor.id                                                   //No self connections
+                        && vector2.getVectorBetween(circle.position, neighbor.position).x >= 0      //No 2-way connections
+                        //&& vector2.getSqrDistanceBetween(circle.position, neighbor.position) <= 81  //Only draw lines if within 9% distance
+                    ) {
                         let newLine = new lineData(
                             new vector2((circle.position.x / 100 * size.x) + circle.size / 2, (circle.position.y / 100 * size.y) + circle.size / 2),
-                            new vector2((neighbor.position.x / 100 * size.x) + circle.size / 2, (neighbor.position.y / 100 * size.y) + circle.size / 2),
-                            "#FFFFFF", 2);
+                            new vector2((neighbor.position.x / 100 * size.x) + neighbor.size / 2, (neighbor.position.y / 100 * size.y) + neighbor.size / 2),
+                            "#FFFFFF", 1);
                         lines.push(newLine);
                         console.log("Creating new line with start x pos: " + newLine.start.x.toString())
                     }
@@ -112,7 +116,7 @@ const DynamicBackground = () => {
         return () => {
             if (lineAnimationRef.current) cancelAnimationFrame(lineAnimationRef.current);
         };
-    }, [size.x, size.y, proxGrid]); //DO NOT ADD CIRCLES TO THIS DEPENDENCT
+    }, [size.x, size.y, proxGrid]); //DO NOT ADD CIRCLES TO THIS DEPENDENCY - breaks everything. I will fix this later
 
     return (
         <div className="dynamic-background" ref={sizeRef}>
