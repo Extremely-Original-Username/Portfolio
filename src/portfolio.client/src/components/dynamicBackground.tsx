@@ -25,7 +25,7 @@ const DynamicBackground = () => {
 
             //Disable event for some time
             window.removeEventListener("mousemove", mouseHandlerEvent);
-            setTimeout(() => window.addEventListener("mousemove", mouseHandlerEvent), 1000)
+            setTimeout(() => window.addEventListener("mousemove", mouseHandlerEvent), 200)
         }
         window.addEventListener("mousemove", mouseHandlerEvent);
 
@@ -82,7 +82,7 @@ const DynamicBackground = () => {
             proxGrid.current = new proximityGrid(10, 10, 10);
             setCircles((prevCircles) => {
                 const updatedCircles = prevCircles.map((currentCircle) => {
-                    const nextCircle = circle.getNextFrameCircle(currentCircle);
+                    const nextCircle = circle.getNextFrameCircle(currentCircle, mousePosition.current);
 
                     // Update proximity grid with new positions
                     proxGrid.current.addCircleToGrid(nextCircle);

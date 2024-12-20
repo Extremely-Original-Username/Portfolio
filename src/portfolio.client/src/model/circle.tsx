@@ -1,4 +1,3 @@
-import proximityGrid from "./proximityGrid";
 import vector2 from "./vector2";
 
 class circle {
@@ -14,8 +13,32 @@ class circle {
         this.delta = delta;
     }
 
-    static getNextFrameCircle(item: circle): circle {
+    static getNextFrameCircle(item: circle, mousePos: vector2): circle {
+        const maxRepelDistance = 10;
+
+        if (mousePos === undefined) {
+            mousePos = item.position;
+        }
+
         const newCircle = new circle(item.id, item.size, item.position, item.delta);
+
+        if (vector2.getSqrDistanceBetween(mousePos, newCircle.position) < maxRepelDistance * maxRepelDistance) {
+            const betweenVector = vector2.getVectorBetween(newCircle.position, mousePos)
+
+            const inverseNumber = (num: number) => {
+                if (num >= 0) {
+                    return maxRepelDistance - num;
+                } else {
+                    return -maxRepelDistance - num;
+                }
+            }
+
+            betweenVector.x = inverseNumber(betweenVector.x);
+            betweenVector.y = inverseNumber(betweenVector.y);
+
+            newCircle.delta.x -= betweenVector.x / 2000;
+            newCircle.delta.y -= betweenVector.y / 2000;
+        }
 
         newCircle.position.x += newCircle.delta.x;
         newCircle.position.y += newCircle.delta.y;
