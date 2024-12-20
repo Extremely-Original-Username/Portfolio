@@ -13,6 +13,21 @@ class circle {
         this.delta = delta;
     }
 
+    static inverseNumber (num: number, base: number) {
+        if (num >= 0) {
+            return base - num;
+        } else {
+            return -base - num;
+        }
+    }
+
+    static applyDrag(speed: number, baseSpeed: number, dragReductionFactor: number) {
+        if (speed > baseSpeed) {
+            return speed - ((speed - baseSpeed) / dragReductionFactor);
+        }
+        return speed;
+    }
+
     static getNextFrameCircle(item: circle, mousePos: vector2, maxRepelDistance: number): circle {
 
         if (mousePos === undefined) {
@@ -24,19 +39,17 @@ class circle {
         if (vector2.getSqrDistanceBetween(mousePos, newCircle.position) < maxRepelDistance * maxRepelDistance) {
             const betweenVector = vector2.getVectorBetween(newCircle.position, mousePos)
 
-            const inverseNumber = (num: number) => {
-                if (num >= 0) {
-                    return maxRepelDistance - num;
-                } else {
-                    return -maxRepelDistance - num;
-                }
-            }
+            
 
-            betweenVector.x = inverseNumber(betweenVector.x);
-            betweenVector.y = inverseNumber(betweenVector.y);
+            betweenVector.x = this.inverseNumber(betweenVector.x, maxRepelDistance);
+            betweenVector.y = this.inverseNumber(betweenVector.y, maxRepelDistance);
 
             newCircle.delta.x -= betweenVector.x / 2000;
             newCircle.delta.y -= betweenVector.y / 2000;
+        }
+        else {
+            newCircle.delta.x = this.applyDrag(newCircle.delta.x, 0.5 / 10, 50);
+            newCircle.delta.y = this.applyDrag(newCircle.delta.y, 0.5 / 10, 50);
         }
 
         newCircle.position.x += newCircle.delta.x;
