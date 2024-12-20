@@ -6,6 +6,10 @@ import '../styling/dynamicBackground.css';
 import vector2 from './../model/vector2';
 
 const DynamicBackground = () => {
+    //Parameters
+    const maxRepulstionDistance = 10;
+    const maxJoinDistance = 10;
+
     const [circles, setCircles] = useState<circle[]>([]);
     const [lines, setLines] = useState<lineData[]>([])
     const circleAnimationRef = useRef<number | null>(null);
@@ -16,7 +20,7 @@ const DynamicBackground = () => {
 
     const mousePosition = useRef(new vector2(0, 0));
 
-    const proxGrid = useRef(new proximityGrid(10, 10, 10));
+    const proxGrid = useRef(new proximityGrid(maxJoinDistance, maxJoinDistance, 100 / maxJoinDistance));
 
     useEffect(() => {
         const mouseHandlerEvent = (event: MouseEvent) => {
@@ -82,7 +86,7 @@ const DynamicBackground = () => {
             proxGrid.current = new proximityGrid(10, 10, 10);
             setCircles((prevCircles) => {
                 const updatedCircles = prevCircles.map((currentCircle) => {
-                    const nextCircle = circle.getNextFrameCircle(currentCircle, mousePosition.current);
+                    const nextCircle = circle.getNextFrameCircle(currentCircle, mousePosition.current, maxRepulstionDistance);
 
                     // Update proximity grid with new positions
                     proxGrid.current.addCircleToGrid(nextCircle);
@@ -110,7 +114,7 @@ const DynamicBackground = () => {
                     if (
                         circle.id !== neighbor.id                                                   //No self connections
                         && vector2.getVectorBetween(circle.position, neighbor.position).x >= 0      //No 2-way connections
-                        //&& vector2.getSqrDistanceBetween(circle.position, neighbor.position) <= 81  //Only draw lines if within 9% distance
+                        //&& vector2.getSqrDistanceBetween(circle.position, neighbor.position) <= 81  //Only draw lines if within correct distance
                     ) {
                         let newLine = new lineData(
                             new vector2((circle.position.x / 100 * size.x) + circle.size / 2, (circle.position.y / 100 * size.y) + circle.size / 2),

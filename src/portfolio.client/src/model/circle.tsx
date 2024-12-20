@@ -13,8 +13,7 @@ class circle {
         this.delta = delta;
     }
 
-    static getNextFrameCircle(item: circle, mousePos: vector2): circle {
-        const maxRepelDistance = 10;
+    static getNextFrameCircle(item: circle, mousePos: vector2, maxRepelDistance: number): circle {
 
         if (mousePos === undefined) {
             mousePos = item.position;
