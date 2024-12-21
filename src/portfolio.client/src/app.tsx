@@ -1,6 +1,7 @@
 import './styling/app.css';
 import DynamicBackground from './components/dynamicBackground';
 import HelloWorld from './components/helloWorld';
+import SplashHeader from './components/splashHeader';
 
 function App() {
     return (
@@ -8,6 +9,8 @@ function App() {
             <div className="background">
                 <DynamicBackground />
             </div>
+
+            <SplashHeader title="Hello!" subTitle="Welcome to my portfolio." />
 
             <HelloWorld />
         </div>

@@ -4,19 +4,7 @@
     padding: 2rem;
     text-align: center;
     color: white;
-}
-
-tr:nth-child(even) {
-    background: #F2F2F2;
-}
-
-tr:nth-child(odd) {
-    background: #FFF;
-}
-
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    font-family: Consolas;
 }
 
 .background {
@@ -33,4 +21,26 @@ th, td {
     background-color: var(--AltDark);
     color: var(--Light);
     position: relative;
+}
+
+.splashHeader {
+    text-align: left;
+    padding: 1vw;
+    margin: 0px;
+    /*background-color: var(--Dark);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);*/
+    color: var(--Accent);
+    width: fit-content;
+}
+
+.splashHeader h1{
+    font-size: 8vw;
+    padding: 0px;
+    margin: 0px;
+}
+
+.splashHeader h2{
+    font-size: 1.5vw;
+    padding: 0px;
+    margin: 0px;
 }
