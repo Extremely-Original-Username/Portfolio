@@ -13,6 +13,11 @@ function App() {
             <SplashHeader title="Hello!" subTitle="Welcome to my portfolio." />
 
             <HelloWorld />
+
+            <div className="standardPanel">
+                <h1 id="tabelLabel">Test</h1>
+                <p>testing</p>
+            </div>
         </div>
     );
 }

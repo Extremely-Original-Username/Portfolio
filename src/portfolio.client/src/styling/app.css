@@ -1,19 +1,13 @@
-﻿#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-    color: white;
-    font-family: Consolas;
-}
-
-.background {
+﻿.background {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: -10;
+    background-color: red;
+    padding: 0px;
+    margin: 0px;
 }
 
 .standardPanel {
@@ -31,6 +25,8 @@
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);*/
     color: var(--Accent);
     width: fit-content;
+    margin-top: 15vh;
+    margin-bottom: 25vh;
 }
 
 .splashHeader h1{
