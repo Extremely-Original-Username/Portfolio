@@ -21,7 +21,7 @@ function HelloWorld() {
 
   return (
       <div className="largePanel center">
-          <h1 id="tabelLabel">Sample page</h1>
+          <h1>Sample page</h1>
           <p>This component demonstrates fetching data from the server.</p>
           <div>{helloWorldText || 'Loading...'}</div> {/* Display fetched text or a loading message */}
       </div>

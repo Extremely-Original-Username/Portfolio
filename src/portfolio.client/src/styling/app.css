@@ -26,13 +26,16 @@
 
 .largePanel {
     width: 800px;
+    padding: 5px 20px 5px 20px;
+    margin-bottom: 20px;
     background-color: var(--AltDark);
     color: var(--Light);
 }
 
-    .center{
-        margin: auto;
-    }
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .splashHeader {
     text-align: left;
