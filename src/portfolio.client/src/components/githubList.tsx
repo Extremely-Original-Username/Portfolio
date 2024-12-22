@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import GithubRepositoryListItem from "../model/githubRepositoryListItem";
 import GithubListProps from "../model/props/githubListProps";
+import Markdown from 'react-markdown'
 
 const GitHubList = (props: GithubListProps) => {
     var [repositories, setRepositories] = useState<GithubRepositoryListItem[]>([]);
@@ -11,7 +12,9 @@ const GitHubList = (props: GithubListProps) => {
             try {
                 const response = await fetch(getReposUrl);
                 const data = await response.json();
-                setRepositories(data);
+                if (data[0] instanceof GithubRepositoryListItem) { //TEMP FIX FOR RATE LIMITS ISSUE
+                    setRepositories(data);
+                }
             } catch (error) {
                 console.error('Error fetching repositories:', error);
                 setTimeout(fetchRepos, 1000)
@@ -60,7 +63,11 @@ const GitHubList = (props: GithubListProps) => {
         <div>
             {
                 repositories.map((repo) => (
-                    <div className="largePanel center">{repo.name}: {repo.readme}</div>
+                    <div className="largePanel center" key={repo.name}>
+                        <h1>{repo.name}</h1>
+                        <h2>{repo.description}</h2>
+                        <Markdown>{repo.readme}</Markdown>
+                    </div>
                 ))
             }
         </div>
