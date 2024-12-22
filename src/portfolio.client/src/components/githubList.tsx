@@ -41,7 +41,7 @@ const GitHubList = (props: GithubListProps) => {
             var newRepositories: GithubRepositoryListItem[] = []
             try {
                 for (var i = 0; i < repositories.length; i++) {
-                    newRepositories.push(new GithubRepositoryListItem(repositories[i].name, await fetchReadMe(repositories[i].name)));
+                    newRepositories.push(new GithubRepositoryListItem(repositories[i].name, repositories[i].description, await fetchReadMe(repositories[i].name)));
                 }
             } catch (error) {
                 console.error('Error fetching readmes:', error);
