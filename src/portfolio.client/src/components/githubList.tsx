@@ -6,20 +6,9 @@ const GitHubList = (props: GithubListProps) => {
     var [repositories, setRepositories] = useState<GithubRepositoryListItem[]>([]);
 
     useEffect(() => {
-        async function fetchReadMe(repo: string) {
-            const getReadMeURL = "https://api.github.com/repos/" + props.user + "/" + repo + "/readme";
-            try {
-                const response = await fetch(getReadMeURL);
-                const data = await response.json();
-                return data.content;
-            } catch {
-                return "Error getting README from Github";
-            }
-        }
-
         async function fetchRepos() {
+            const getReposUrl = "https://api.github.com/users/" + props.user + "/repos"
             try {
-                const getReposUrl = "https://api.github.com/users/" + props.user + "/repos"
                 const response = await fetch(getReposUrl);
                 const data = await response.json();
                 setRepositories(data);
@@ -31,6 +20,41 @@ const GitHubList = (props: GithubListProps) => {
 
         fetchRepos(); // Call the fetch function
     }, [props.user]); // Empty dependency array ensures this runs once when the component mounts
+
+    useEffect(() => {
+        async function fetchReadMe(repo: string): Promise<string> {
+            const getReadMeURL = "https://api.github.com/repos/" + props.user + "/" + repo + "/readme";
+            try {
+                const response = await fetch(getReadMeURL);
+                const data = await response.json();
+                return (atob(data.content));
+            } catch (error) {
+                throw new Error("Error fetching readme: " + error);
+            }
+        }
+
+        async function updateReadMes() {
+            if (repositories.length === 0) {
+                return;
+            }
+
+            var newRepositories: GithubRepositoryListItem[] = []
+            try {
+                for (var i = 0; i < repositories.length; i++) {
+                    newRepositories.push(new GithubRepositoryListItem(repositories[i].name, await fetchReadMe(repositories[i].name)));
+                }
+            } catch (error) {
+                console.error('Error fetching readmes:', error);
+                setTimeout(updateReadMes, 1000)
+            }
+
+            if (newRepositories.length === repositories.length) {
+                setRepositories(newRepositories);
+            }
+        }
+
+        updateReadMes();
+    }, [repositories]);
 
     return (
         <div>
