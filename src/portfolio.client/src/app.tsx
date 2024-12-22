@@ -2,6 +2,7 @@ import './styling/app.css';
 import DynamicBackground from './components/dynamicBackground';
 import HelloWorld from './components/helloWorld';
 import SplashHeader from './components/splashHeader';
+import GitHubList from './components/githubList';
 
 function App() {
     return (
@@ -19,6 +20,8 @@ function App() {
                     <p>This only includes my personal projects which can be found on my <a href="https://github.com/Extremely-Original-Username">personal github</a>.
                         Most of these projects are just small passion projects I have made to indulge in my curiosity on various subjects!</p>
                 </div>
+
+                <GitHubList user="Extremely-Original-Username" />
 
                 <HelloWorld />
             </div>
