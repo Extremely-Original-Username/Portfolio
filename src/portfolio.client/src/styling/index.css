@@ -16,7 +16,7 @@ html, body, :root {
     --Dark: #424250;
     --AltDark: #84777A;
     --Primary: #aa809a;
-    --Infro: #424250;
+    --Info: #424250;
     --Success: #68a166;
     --Warning: #e6912e;
     --Danger: #f44336;
@@ -24,13 +24,9 @@ html, body, :root {
 
 a {
     font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
+    color: var(--Info);
+    text-decoration: underline;
 }
-
-    a:hover {
-        color: #535bf2;
-    }
 
 h1 {
     font-size: 3.2em;
