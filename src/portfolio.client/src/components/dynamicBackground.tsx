@@ -26,7 +26,6 @@ const DynamicBackground = () => {
         const mouseHandlerEvent = (event: MouseEvent) => {
             mousePosition.current.x = (event.clientX + window.pageXOffset) / size.x * 100;
             mousePosition.current.y = (event.clientY + window.pageYOffset) / size.y * 100;
-            console.log(window.pageYOffset);
 
             //Disable event for some time
             window.removeEventListener("mousemove", mouseHandlerEvent);
