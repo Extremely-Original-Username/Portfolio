@@ -5,18 +5,20 @@ import SplashHeader from './components/splashHeader';
 
 function App() {
     return (
-        <div>
+        <div className="wrapper">
             <div className="background">
                 <DynamicBackground />
             </div>
 
-            <SplashHeader title="Hello!" subTitle="Welcome to my portfolio." />
+            <div className="foreground">
+                <SplashHeader title="Hello!" subTitle="Welcome to my portfolio." />
 
-            <HelloWorld />
+                <HelloWorld />
 
-            <div className="standardPanel">
-                <h1 id="tabelLabel">Test</h1>
-                <p>testing</p>
+                <div className="largePanel center">
+                    <h1 id="tabelLabel">Test</h1>
+                    <p>testing</p>
+                </div>
             </div>
         </div>
     );

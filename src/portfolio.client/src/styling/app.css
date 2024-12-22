@@ -1,4 +1,12 @@
-﻿.background {
+﻿.wrapper{
+    width: 100%;
+    height: fit-content;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+}
+
+.background {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -10,12 +18,21 @@
     margin: 0px;
 }
 
-.standardPanel {
+.foreground{
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%
+}
+
+.largePanel {
     width: 800px;
     background-color: var(--AltDark);
     color: var(--Light);
-    position: relative;
 }
+
+    .center{
+        margin: auto;
+    }
 
 .splashHeader {
     text-align: left;

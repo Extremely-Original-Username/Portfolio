@@ -20,7 +20,7 @@ function HelloWorld() {
     }, []); // Empty dependency array ensures this runs once when the component mounts
 
   return (
-      <div className="standardPanel">
+      <div className="largePanel center">
           <h1 id="tabelLabel">Sample page</h1>
           <p>This component demonstrates fetching data from the server.</p>
           <div>{helloWorldText || 'Loading...'}</div> {/* Display fetched text or a loading message */}
