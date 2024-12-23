@@ -64,7 +64,7 @@ const GitHubList = (props: GithubListProps) => {
                     <div className="largePanel center" key={repo.name}>
                         <h1>{repo.name}</h1>
                         <h2>{repo.description}</h2>
-                        <Markdown>{repo.readme}</Markdown>
+                        <Markdown children={repo.readme} />
                     </div>
                 ))
             }
