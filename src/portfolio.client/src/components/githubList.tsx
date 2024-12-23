@@ -11,10 +11,8 @@ const GitHubList = (props: GithubListProps) => {
             const getReposUrl = "https://api.github.com/users/" + props.user + "/repos"
             try {
                 const response = await fetch(getReposUrl);
-                const data = await response.json();
-                if (data[0] instanceof GithubRepositoryListItem) { //TEMP FIX FOR RATE LIMITS ISSUE
-                    setRepositories(data);
-                }
+                const data = await response.json();             //NEED TO FIX RATE LIMIT ISSUE
+                setRepositories(data);
             } catch (error) {
                 console.error('Error fetching repositories:', error);
                 setTimeout(fetchRepos, 1000)
