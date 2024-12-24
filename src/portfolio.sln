@@ -4,11 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "portfolio.client", "portfolio.client\portfolio.client.esproj", "{BA956FED-A752-4527-B3A9-57524308B70E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{02A14DA1-F78C-4860-B979-06553C7687EE} = {02A14DA1-F78C-4860-B979-06553C7687EE}
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "portfolio.api", "portfolio.api\portfolio.api.csproj", "{02A14DA1-F78C-4860-B979-06553C7687EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "portfolio.server", "portfolio.server\portfolio.server.csproj", "{FBE2FA1A-1F01-49D5-BED7-038D912BF5D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +19,10 @@ Global
 		{BA956FED-A752-4527-B3A9-57524308B70E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA956FED-A752-4527-B3A9-57524308B70E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA956FED-A752-4527-B3A9-57524308B70E}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{02A14DA1-F78C-4860-B979-06553C7687EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02A14DA1-F78C-4860-B979-06553C7687EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02A14DA1-F78C-4860-B979-06553C7687EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02A14DA1-F78C-4860-B979-06553C7687EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE2FA1A-1F01-49D5-BED7-038D912BF5D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE2FA1A-1F01-49D5-BED7-038D912BF5D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE2FA1A-1F01-49D5-BED7-038D912BF5D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE2FA1A-1F01-49D5-BED7-038D912BF5D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
